@@ -1,0 +1,4 @@
+{
+  "/(root)/(routes)/page": "app/(root)/(routes)/page.js",
+  "/(root)/airlines/page": "app/(root)/airlines/page.js"
+}
