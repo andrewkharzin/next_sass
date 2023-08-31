@@ -6,9 +6,9 @@ async function main() {
     try {
         await db.category.createMany({
             data: [
-               { name: "Notes"},
-               { name: "Tasks"},
-               { name: "Projects"},
+               { name: "Flight Kits"},
+               { name: "TTSP shipments"},
+               { name: "Charter Flights"},
                { name: "Flights"},
                { name: "Activites"},
                { name: "Users"},
