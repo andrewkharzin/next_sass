@@ -1,4 +1,4 @@
-// File: /Users/andrewkhz/Dev/django/awahss3/frontend/client2/app/(root)/(routes)/page.tsx
+// File: /workspaces/next_sass/app/(root)/(routes)/page.tsx
 import * as entry from '../../../../../app/(root)/(routes)/page.js'
 import type { ResolvingMetadata } from 'next/dist/lib/metadata/types/metadata-interface.js'
 
