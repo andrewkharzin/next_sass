@@ -3,6 +3,7 @@
 
 generator client {
   provider = "prisma-client-js"
+  previewFeatures = ["fullTextSearch", "fullTextIndex"]
 }
 
 datasource db {
@@ -10,10 +11,10 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model Category {
-  id   String @id @default(uuid())
-  name String
-}
+// model Category {
+//   id   String @id @default(uuid())
+//   name String
+// }
 
 
 model Category {
@@ -25,17 +26,20 @@ model Category {
 model Note {
   id             String    @id @default(auto()) @map("_id") @db.ObjectId
   slug           String    @unique
-  title          String
+  title          String    @db.String
   content        String
   category       Category  @relation(fields: [categoryId], references: [id])
-  categoryId     String
+  categoryId     String    @db.ObjectId
   author         User      @relation(fields: [authorId], references: [id])
-  authorId       String
+  authorId       String    @db.ObjectId
   comments       Comment[]
 
   createdAt       DateTime @default(now())
   updatedAt       DateTime @updatedAt  
   importanceLevel String?
+
+  @@index([categoryId])
+  @@fulltext([title])
 }
 
 
@@ -50,6 +54,7 @@ model Comment {
   id      String @id @default(auto()) @map("_id") @db.ObjectId
   comment String
   post    Note   @relation(fields: [noteId], references: [id])
-  noteId  String
+  noteId  String @db.ObjectId
 }
+
 
