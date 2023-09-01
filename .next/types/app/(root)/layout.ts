@@ -1,4 +1,4 @@
-// File: /workspaces/next_sass/app/(root)/layout.tsx
+// File: /Users/andrewkhz/Dev/nextjs/client2/app/(root)/layout.tsx
 import * as entry from '../../../../app/(root)/layout.js'
 import type { ResolvingMetadata } from 'next/dist/lib/metadata/types/metadata-interface.js'
 

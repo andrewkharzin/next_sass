@@ -2,15 +2,20 @@
 // learn more about it in the docs: https://pris.ly/d/prisma-schema
 
 generator client {
-  provider = "prisma-client-js"
+  provider        = "prisma-client-js"
   previewFeatures = ["fullTextSearch", "fullTextIndex"]
-  binaryTargets = ["native", "debian-openssl-1.1.x"]
 }
 
+// datasource db {
+//   provider = "postgres"
+//   url      = env("DATABASE_URL")
+//   // relationMode = "prisma"
+// }
 
 datasource db {
-  provider = "mongodb"
-  url      = env("DATABASE_URL")
+  provider     = "mysql"
+  url          = env("DATABASE_URL")
+  relationMode = "prisma"
 }
 
 // model Category {
@@ -18,45 +23,41 @@ datasource db {
 //   name String
 // }
 
-
 model Category {
-  id    String    @id @default(auto()) @map("_id") @db.ObjectId
+  id    String @id @default(uuid())
   name  String
   notes Note[]
 }
 
 model Note {
-  id             String    @id @default(auto()) @map("_id") @db.ObjectId
-  slug           String    @unique
-  title          String    @db.String
-  content        String
-  category       Category  @relation(fields: [categoryId], references: [id])
-  categoryId     String    @db.ObjectId
-  author         User      @relation(fields: [authorId], references: [id])
-  authorId       String    @db.ObjectId
-  comments       Comment[]
+  id         String    @id @default(uuid())
+  slug       String    @unique
+  title      String    @db.Text
+  content    String
+  category   Category  @relation(fields: [categoryId], references: [id])
+  categoryId String
+  author     User      @relation(fields: [authorId], references: [id])
+  authorId   String    @db.Text
+  comments   Comment[]
 
   createdAt       DateTime @default(now())
-  updatedAt       DateTime @updatedAt  
+  updatedAt       DateTime @updatedAt
   importanceLevel String?
 
   @@index([categoryId])
   @@fulltext([title])
 }
 
-
 model User {
-  id      String   @id @default(auto()) @map("_id") @db.ObjectId
-  email   String   @unique
-  name    String?
-  notes   Note[]
+  id    String  @id @default(uuid()) @map("_id")
+  email String  @unique
+  name  String?
+  notes Note[]
 }
 
 model Comment {
-  id      String @id @default(auto()) @map("_id") @db.ObjectId
+  id      String @id @default(uuid()) @map("_id")
   comment String
   post    Note   @relation(fields: [noteId], references: [id])
-  noteId  String @db.ObjectId
+  noteId  String
 }
-
-
