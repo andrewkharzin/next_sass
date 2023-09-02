@@ -1,10 +1,5 @@
 {
   "pages": {
-    "/(root)/(routes)/(apps)/note/[noteId]/page": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/chunks/app/(root)/(routes)/(apps)/note/[noteId]/page.js"
-    ],
     "/(root)/layout": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
@@ -16,6 +11,11 @@
       "static/chunks/main-app.js",
       "static/css/app/layout.css",
       "static/chunks/app/layout.js"
+    ],
+    "/(root)/(routes)/(apps)/(states)/flights/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/(root)/(routes)/(apps)/(states)/flights/page.js"
     ]
   }
 }
