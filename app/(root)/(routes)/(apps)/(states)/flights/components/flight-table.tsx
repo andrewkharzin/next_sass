@@ -13,11 +13,16 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
+import { Badge , badgeVariants} from "@/components/ui/badge"
+
+
 
 export const dynamic = "force-dynamic";
 
 
 function FlightsTable() {
+  const BASE_URL = "http://127.0.0.1:8000";
   const { loading, error, data } = useQuery(GET_FLIGHTS);
   // const { loading, error, data } = useSuspenseQuery(GET_FLIGHTS);
 
@@ -49,7 +54,23 @@ function FlightsTable() {
         <TableBody>
           {flights.map((flight) => (
             <TableRow key={flight.id}>
-              <TableCell className="font-bold text-orange-600 uppercase">{flight.airline.codeIataAirline}</TableCell>
+              <TableCell>
+                <div className="flex items-center space-x-3">
+                      
+                          <Avatar>
+                            <AvatarImage src={`${BASE_URL}${flight.airline.resolvedArlLogo}`} />
+                            <AvatarFallback>{flight.airline.codeIataAirline}</AvatarFallback>
+                          </Avatar>
+                        
+                        <div>
+                          <Badge variant="outline">{flight.flightNumber}</Badge>
+
+                          <div className="font-light text-xs">
+                            {flight.airline.nameAirline}
+                          </div>
+                        </div>
+                </div>
+              </TableCell>
               <TableCell className="font-medium">{flight.flightNumber}</TableCell>
               <TableCell className="font-medium">{flight.aircraftType}</TableCell>
             </TableRow>
