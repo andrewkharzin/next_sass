@@ -4,6 +4,7 @@ import {
     ColumnDef,
     flexRender,
     getCoreRowModel,
+    getPaginationRowModel,
     useReactTable,
 } from "@tanstack/react-table"
 
@@ -16,12 +17,14 @@ import {
     TableRow,
 } from "@/components/ui/table"
 import { useMediaQuery } from 'react-responsive';
+import { Button } from "@/components/ui/button"
+import "./table.css";
 
 const getRowColor = (row) => {
     const flightNumber = row.original.flightNumber;
     // Define your conditions and corresponding colors here
     if (flightNumber.startsWith("")) {
-        return { backgroundColor: "bg-primary/10" }; // Green background for flight numbers starting with "AA"
+        return { backgroundColor: "bg-gray-300" }; // Green background for flight numbers starting with "AA"
     }
     // Add more conditions and colors as needed
     return {}; // Default to no additional styling
@@ -53,6 +56,7 @@ export function DataTable<TData, TValue>({
         data,
         columns,
         getCoreRowModel: getCoreRowModel(),
+        getPaginationRowModel: getPaginationRowModel(),
     })
     const isSmallScreen = useMediaQuery({ maxWidth: 768 });
 
@@ -61,6 +65,7 @@ export function DataTable<TData, TValue>({
 
 
     return (
+      <div>
         <div className="rounded-md border">
             <Table>
                 <TableHeader>
@@ -91,6 +96,7 @@ export function DataTable<TData, TValue>({
                                 key={row.id}
                                 data-state={row.getIsSelected() && "selected"}
                                 style={getRowColor(row)}
+                                className="hovered-row"
                             >
                                 {row.getVisibleCells().map((cell) => (
                                     <TableCell
@@ -112,5 +118,24 @@ export function DataTable<TData, TValue>({
                 </TableBody>
             </Table>
         </div>
+        <div className="flex items-center justify-end space-x-2 py-4">
+            <Button
+            variant="outline"
+            size="sm"
+            onClick={() => table.previousPage()}
+            disabled={!table.getCanPreviousPage()}
+            >
+            Previous
+            </Button>
+            <Button
+            variant="outline"
+            size="sm"
+            onClick={() => table.nextPage()}
+            disabled={!table.getCanNextPage()}
+            >
+            Next
+            </Button>
+        </div>
+      </div>  
     )
 }

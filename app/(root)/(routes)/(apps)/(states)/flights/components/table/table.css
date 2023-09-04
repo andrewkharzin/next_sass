@@ -1,0 +1,5 @@
+.hovered-row:hover {
+    background-color: #0c243e; /* Change this to the desired background color on hover */
+    cursor: pointer; /* Change the cursor to indicate interactivity */
+  }
+  

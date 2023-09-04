@@ -6,6 +6,7 @@ import { columns } from "./components/table/columns"
 import { FlightType } from '@/types/apps/flight'; // Import the FlightType
 import { DataTable } from "./components/table/data-table"
 import { Progress } from "@/components/ui/progress"
+import Loading from './components/table/skeleton';
 
 
 export const dynamic = "force-dynamic";
@@ -19,7 +20,11 @@ export default function FlightPage() {
   // Check if data is loading
   if (loading) {
     console.log('Loading flight data...'); // Add this console.log statement
-    return <Progress value={76} />
+    return (
+      <div className="container mx-auto py-10">
+         <Loading />
+       </div>
+    )  
   }
 
   // Handle errors
